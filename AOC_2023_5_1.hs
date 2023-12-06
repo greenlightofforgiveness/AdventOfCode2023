@@ -16,7 +16,7 @@ analyze1 s = let x = filter (/= []) $ splitOn "\n" s
 
 count1 :: [Int] -> Map.Map String [(Int, Int, Int)] -> [Int] -> Int
 count1 [] m acc 	  =  minimum acc
-count1 (x : xs) m acc = let f n (x, y, z) = if ((n >= y) && (n <= y + z)) then (x + n - y) else (-1);
+count1 (x : xs) m acc = let f n (x, y, z) = if ((n >= y) && (n < y + z)) then (x + n - y) else (-1);
 							soil' = filter (/= (-1)) $ map (f x) (m Map.! "seed-to-soil map");
 							soil = if (soil' /= []) then soil'!!0 else x;
 							fert' = filter (/= (-1)) $ map (f soil) (m Map.! "soil-to-fertilizer map");
