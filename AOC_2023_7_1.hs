@@ -23,15 +23,16 @@ Two pair, where two cards share one label, two other cards share a second label,
 One pair, where two cards share one label, and the other three cards have a different label from the pair and each other: A23A4, 2
 High card, where all cards' labels are distinct: 23456, 1
 -}
-hand_type x  | length (f x) == 5 = 1
-             | length (f x) == 4 = 2
+hand_type x  | l == 5 = 1
+             | l == 4 = 2
              | elem (f x) (permutations [2,2,1]) = 3
              | elem (f x) (permutations [3,1,1]) = 4
              | (f x == [2,3]) || (f x == [3,2]) = 5
              | (f x == [1,4]) || (f x == [4,1]) = 6
-             | length (f x) == 1 = 7
+             | l == 1 = 7
              | otherwise = 0
                 where f x = filter (/= 0) (map length (map (\c -> filter (== c) x) cards))
+                      l = length (f x)
 
 helper :: [String] -> [[(String, Int)]] -> [[(String, Int)]]
 helper [] acc = acc
