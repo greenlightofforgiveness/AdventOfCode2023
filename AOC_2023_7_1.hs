@@ -40,7 +40,7 @@ helper (x : xs) acc = let x' = splitOn " " x
                           n = read (x' !! 1) :: Int
                           t' = (hand_type k) - 1
                           acc1 = map (\x -> acc !! x) [0 .. t' - 1]
-                          acc2 = [((acc !! t') ++ [((replace k), n)])] 
+                          acc2 = [(acc !! t') ++ [((replace k), n)]] 
                           acc3 = map (\x -> acc !! x) [t' + 1 .. 6]
                           acc' = acc1 ++ acc2 ++ acc3 
                                 in helper xs acc'
