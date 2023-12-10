@@ -10,7 +10,7 @@ main1 = do
 analyze1 :: String -> String
 analyze1 s = let s' = filter (/= "") (splitOn "\n" s) in show (count1 (head s') (tail s') "AAA" 0)
 
-count1 :: String ->  [String] -> String -> Int -> Int
+count1 :: String -> [String] -> String -> Int -> Int
 count1 str x acc i = let m = Map.fromList (helper x [])
                          rez = f str m acc
                                 in if (rez == "ZZZ") then (i + 1) * (length str) else count1 str x rez (i + 1)
