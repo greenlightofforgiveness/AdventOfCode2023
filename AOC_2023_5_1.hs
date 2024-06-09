@@ -1,4 +1,4 @@
-module AOC_2023_5 where
+module AOC_2023_5_1 where
 import System.IO
 import Data.List.Split (splitOn)
 import System.IO (readFile)
