@@ -13,12 +13,12 @@ main1 = do
 analyze1 :: String -> String
 analyze1 s = let x = filter (/= []) $ splitOn "\n" s
                  m = Map.fromListWith (++) (helper (tail x) "" [])
-                 seeds = map (\x -> read x :: Int) (tail $ splitOn " " $ dropWhile (/= ':') (head x))
+                 seeds = map (\seed -> read seed :: Int) (tail $ splitOn " " $ dropWhile (/= ':') (head x))
                         in show $ count1 seeds m []
 
 count1 :: [Int] -> Map.Map String [(Int, Int, Int)] -> [Int] -> Int
-count1 [] m acc 	  =  minimum acc
-count1 (x : xs) m acc = let     soil' = find (\(a, b, c) -> (x >= b) && (x < b + c)) (m Map.! "seed-to-soil map")
+count1 [] m acc         =  minimum acc
+count1 (x : xs) m acc   = let   soil' = find (\(a, b, c) -> (x >= b) && (x < b + c)) (m Map.! "seed-to-soil map")
                                 soil = if (soil' /= Nothing) then let (a, b, c) = fromJust soil' in a + x - b else x
                                 fert' = find (\(a, b, c) -> (soil >= b) && (soil < b + c)) (m Map.! "soil-to-fertilizer map")
                                 fert = if (fert' /= Nothing) then let (a, b, c) = fromJust fert' in a + soil - b else soil
@@ -36,5 +36,5 @@ count1 (x : xs) m acc = let     soil' = find (\(a, b, c) -> (x >= b) && (x < b +
 
 helper :: [String] -> String -> [(String, [(Int, Int, Int)])] -> [(String, [(Int, Int, Int)])]
 helper [] _ acc          = acc
-helper (x : xs) k acc    = let f x = [(read (x!!0) :: Int, read (x!!1) :: Int, read (x!!2) :: Int)]
-								in if (elem ':' x) then helper xs (takeWhile (/=':') x) acc else helper xs k ([(k, f (splitOn " " x))] ++ acc)
+helper (x : xs) k acc    = let f x = [(read (x !! 0) :: Int, read (x !! 1) :: Int, read (x !! 2) :: Int)]
+                                in if (elem ':' x) then helper xs (takeWhile (/=':') x) acc else helper xs k ([(k, f (splitOn " " x))] ++ acc)
